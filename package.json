@@ -1,0 +1,23 @@
+{
+  "name": "snippet",
+  "version": "1.0.0",
+  "description": "javscript snippet project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "json-server ./db.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrudulks/snippet.git"
+  },
+  "author": "Mrudul k S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrudulks/snippet/issues"
+  },
+  "homepage": "https://github.com/mrudulks/snippet#readme",
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}
