@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Codes | View Page</title>
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- style--- -->
+        <link rel="stylesheet" href="assets/dist/css/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="collapse bg-dark" id="navbarHeader">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7 py-4">
+                            <h4 class="text-white">About</h4>
+                            <p class="text-muted">Add some information about the album below, the author, or any other background
+              context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off
+              to some social networking sites or contact information.</p>
+                        </div>
+                        <div class="col-sm-4 offset-md-1 py-4">
+                            <h4 class="text-white">Contact</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#" class="text-white">Email me</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-dark bg-dark shadow-sm">
+                <div class="container">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        <ion-icon name="code-slash-outline"></ion-icon>
+                        <strong>Codes</strong>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <section class="code-demo pt-5 pb-5" id="code-view">
+            <div class="container">
+                <h3 class="text-center">Source Codes</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>{{ compiledcontent.codename }}</h3>
+                        <h5>{{ compiledcontent.codelanguage }}</h5>
+                        <div class="varibale-name">
+                            <input type="text" v-for="i in compiledcontent.varibales" v-model="variable[i]" class="form-control" placeholder="varibale name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="source-desc"></div>
+                        <div class="source-code">
+                            <!-- <div class="source-top"></div> -->
+                            <span class="copy-item">
+                                copy<ion-icon name="copy-outline"></ion-icon>
+                            </span>
+                            <pre>{{ renderTemplate() }}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="text-muted py-5">
+            <div class="container">
+                <p class="float-end mb-1">
+                    <a href="#">Back to top</a>
+                </p>
+                <p class="mb-1">Album example is &copy;Bootstrap, but please download and customize it for yourself!</p>
+                <p class="mb-0">
+                    New to Bootstrap? <a href="/">Visit the homepage</a>
+                    or read our <a href="../getting-started/introduction/">getting started guide</a>
+                    .
+                
+                
+                </p>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="main.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
+    </body>
+</html>

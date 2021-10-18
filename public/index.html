@@ -61,12 +61,9 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
-            viewBox="0 0 24 24">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-            <circle cx="12" cy="13" r="4" /></svg>
-          <strong>Album</strong>
+            <ion-icon name="code-slash-outline"></ion-icon>
+            
+          <strong>Codes</strong>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
           aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,7 +113,7 @@
     </section>
 
     <!-- code editor------- -->
-    <div class="album py-5 bg-light">
+    <div class="album py-5 bg-light" style="display: none;">
       <div class="container">
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -197,24 +194,6 @@
       </div>
     </div>
   </section>
-
-
-  <div  style="display: none;">
-    <input type="text" v-model="codeName">
-    <button @click="addSnippets()">Add Snippet</button>
-
-    <pre>
-     {{ snippetItems }}
-    </pre>
-    <ul>
-      <li v-for="item in snippetItems">
-        {{ item.codename }}
-        {{ item.id }}
-      <li>
-    </ul>
-
-  </div>
-
   <footer class="text-muted py-5">
     <div class="container">
       <p class="float-end mb-1">
