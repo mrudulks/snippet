@@ -54,3 +54,32 @@ input[type="text"]{
     border-radius: 5px;
     margin-top: 1rem;
 }
+
+
+/* Render Elemnets */
+.rendered-elements{
+    padding: 30px 20px;
+    background-color: #6a6969;
+    color: white;
+    height: 100%;
+}
+.rendered-elements h3{
+    text-transform: capitalize;
+}
+.rendered-elements p {
+    font-size: 18px;
+
+}
+.rendered-elements,
+.rendered-code {
+    border-radius: 10px;
+}
+.rendered-code{
+    background-color: #f8f9fa;
+    padding: 30px 20px;
+}
+.rendered-code pre{
+    padding: 20px 15px;
+    margin-bottom: 0;
+    min-height: 300px;
+}
