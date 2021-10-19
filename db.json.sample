@@ -1,7 +1,13 @@
 {
-  "snippets": [    
-    codename:
-    codelanguage:
-    codecontent:
+  "snippets": [
+    {
+      "codename": "Vue component",
+      "codelanguage": "javascript",
+      "codecontent": "var <%-  componentname %> = {\n template: '#tmpl-<%-  componentname %>',\nprops: [],\ncomponents: {},\n};\n\n        <script type=\"text/x-template\" id=\"tmpl-<%-  componentname %>\">\n<!-- Vue template goes here -->\n        </script>",
+      "varibales":[
+        "componentname"
+      ],
+      "id": 1
+    }
   ]
 }
