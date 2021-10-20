@@ -3,12 +3,30 @@
 .navbar-brand ion-icon{
     padding-right: 10px;
 }
-
-
-
+.navbar .btn{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.navbar .btn i{
+    font-size: 25px;
+    margin-right: 5px;
+}
+.list-snippet{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin-top: 50px;
+}
+.list-snippet p{
+    margin: 0;
+}
 .source-desc{
-     padding-top: 3rem;
-     
+     /* padding-top: 3rem; */
 }
 .source-code{
     background-color: #f8f9fa;
@@ -32,7 +50,6 @@
     padding-left: 5px;
 }
 .source-code{
-    min-height: 250px;
     padding: 5px 20px;
 }
 .source-code pre{
@@ -81,5 +98,11 @@ input[type="text"]{
 .rendered-code pre{
     padding: 20px 15px;
     margin-bottom: 0;
-    min-height: 300px;
+    min-height: 150px;
+}
+.footer-main{
+    background-color: #212529;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

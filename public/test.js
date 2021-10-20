@@ -1,61 +1,50 @@
-
-// //view snippet component
-// var ViewSnippet = {
-//     template: '#view-snippet',
-//     props: ['type', 'snipid'],
-//     data() {
-//         return {
-//             compiledcontent: '',
-//             val: '',
-//             variable: {//componentname:'componentname'
-//             }
-//         }
-//     },
-//     methods: {
-
-//         fetchData() {
-//             fetch('./snippets/1').then(response=>response.json()).then(data=>{
-//                 this.compiledcontent = data;
-//                 this.val = _.template(this.compiledcontent.codecontent);
-//             }
-//             );
-//         },
-//         renderTemplate() {
-
-//             var defaultData = {};
-//             console.log('renderTemplate', this.compitem + '');
-//             for (var i in this.compiledcontent.variables) {
-//                 defaultData[this.compiledcontent.variables[i]] = ''
-//             }
-//             try {
-//                 return this.val(Object.assign(defaultData, this.variable));
-//             } catch (e) {
-//                 console.log('Error', e)
-//             }
-
-//         }
-//     },
-//     created() {
-//         this.fetchData()
-//     }
-// };
-
-// view component--------------
-var ViewComp = {
-    template:'#view-comp',
-    props:['compitem'],
+// Input Component
+var InputElements = {
+    template:'#input-elements',
+    props:['on-item-saved'],
     data(){
         return{
-           codeRender:'',
-           codeVariables:{
-               
-           }
+            codeName:'',
+            codeLanguage:'',
+            codeContent:''
         }
     },
     methods:{
-        renderTest(){
+        addElements() {
+            fetch('./snippets', {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    codename: this.codeName,
+                    codelanguage: this.codeLanguage,
+                    codecontent: this.codeContent
+                
+                })
+            })
+        this.$emit('created' );
+        }
+    }
+}
+// Component View--------------
+var ViewComp = {
+    template: '#view-comp',
+    props: ['compitem'],
+    data() {
+        return {
+            codeRender: '',
+            id:'',
+            codeVariables: {
+            }
+        }
+    },
+    methods: {
+        
+        renderCode() {
+//             console.log("my array",this.compitem[1])
             this.compitem;
-            this.codeRender=_.template(this.compitem.codecontent) 
+            this.codeRender = _.template(this.compitem.codecontent)
             // console.log("New Temp",this.codeRender)
             var defaultData = {};
             // console.log('renderTemplate', this.compitem + '');
@@ -77,28 +66,29 @@ const ViewApp = {
 
     components: {
         // 'view-snippet': ViewSnippet,
-        'view-comp':ViewComp
+        'view-comp': ViewComp,
+        'input-elements':InputElements
     },
     data() {
         return {
-            snippetItems: '',
+            snippetItems: [],
+            isHidden:true,
+            selectedItem: null,
 
         }
     },
     methods: {
-
+        ItemView(id){
+            console.log(id)
+        },
         snippetFetch() {
-            var id = 1;
-            if (id === '') {
-                var fetchItem = '/snippets/';
-            } else {
-                var fetchItem = './snippets/' + id;
-            }
-            fetch(fetchItem).then(response=>response.json()).then(data=>{
+            fetch('/snippets').then(response=>response.json()).then(data=>{
                 this.snippetItems = data;
-                console.log("my array", this.snippetItems)
+                var len = this.snippetItems.length;
+                console.log("my array",len)
             }
             );
+            this.isHidden = true;
         }
     },
     created() {

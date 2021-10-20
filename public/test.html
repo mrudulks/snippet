@@ -11,6 +11,9 @@
         
     </head>
     <body>
+        <div class="app-main" id="code-view">
+
+   
         <header>
             <div class="collapse bg-dark" id="navbarHeader">
                 <div class="container">
@@ -40,21 +43,62 @@
                         <ion-icon name="code-slash-outline"></ion-icon>
                         <strong>Codes</strong>
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="btn" @click="isHidden = false"><i class="fa fa-plus-circle"></i>Add Code</button>
+                    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </header>
-        <section class="code-demo pt-5 pb-5" id="code-view">
-            <div class="container">
-                <view-comp :compitem="snippetItems"></view-comp>
-            </div>
+        <div style="padding: 50px 0px;"> 
+            <!-- input form-------- -->
+            <section class="code-editor py-5" v-if="!isHidden">
+                <div class="container">
+                    <h3 class="text-center">Add Elements</h3>
+                    <input-elements @created="snippetFetch" ></input-elements>  
+                </div>
+              </section>
+            <!-- input form-------- -->
+            <!-- code list-------- -->
+            <section class="code-list code-demo pt-5 pb-5" v-if="!selectedItem">
+                <div class="container">
+                    <h3 class="text-center">Source Codes</h3>
+                    <div class="row">
+                      <div class="col-md-6" v-for="item in snippetItems">
+                          <div class="list-snippet">
+                            <div class="source-desc">
+                                <h5>{{ item.codename }}</h5>
+                                <p>{{ item.codelanguage }}</p>
+                              </div>
+
+                              <div class="source-code">
+                                <!-- <div class="source-top"></div> -->
+                                <button class="btn btn-primary" @click="selectedItem = item">View Code</button>
+<!--                                 <a href="#" class="btn btn-primary" @click="Itemview(item.id)" id="item.codename">View Code</a> -->
+                                <!-- <span class="copy-item">View Code</span> -->
+                              </div>
+                          </div>
+                        
+                        
+                      </div>
+                    </div>
+                  </div>
+            </section>
             
-            
-        </section>
-        <div class="container">
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <!-- code render-------- -->
+            <section class="code-demo pt-5 pb-5" v-if="selectedItem">
+                <div class="container">
+                    <view-comp :compitem="selectedItem"></view-comp>
+                    <button class="btn btn-dark mt-5" @click="selectedItem = null">Back to list</button>
+                </div>
+            </section>
+        </div>
+        
+
+
+<div class="footer-main">
+<div class="container">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
@@ -63,17 +107,20 @@
     </div>
 
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+      <li class="ms-3"><a class="text-muted" href="#"><i class="fa fa-twitter"></i></a></li>
+      <li class="ms-3"><a class="text-muted" href="#"><i class="fa fa-facebook"></i></a></a></li>
+      <li class="ms-3"><a class="text-muted" href="#"><i class="fa fa-instagram"></i></a></a></li>
     </ul>
   </footer>
 </div>
-        <button-counter></button-counter>
+        </div>
         
         
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
         <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://use.fontawesome.com/5d72098872.js"></script>
+        <!-- View  template -->
 
         <script type="text/x-template" id="view-comp"> 
         <div class="row">
@@ -89,12 +136,35 @@
                 <div class="rendered-code">
                     <h4>Code</h4>
                     <pre>
-                        {{ renderTest() }}
+                        {{ renderCode() }}
                     </pre>
                 </div>
             </div>
         </div>   
-        </script>     
+        </script> 
+        <!-- View  template -->
+
+        <!-- input template -->
+
+        <script type="text/x-template" id="input-elements">
+            <div class="row justify-content-center">
+                    <div class="col-md-8 mt-5">
+                   
+                        <input type="text" v-model="codeName" class="form-control" placeholder="Name">
+                        <input type="text" v-model="codeLanguage" class="form-control" placeholder="Language">
+                          <div class="text-area" >
+                            <textarea name="" id="" rows="10" class="form-control" placeholder="Write Your code" v-model="codeContent"></textarea>
+                          </div>
+                        <div class="text-left pt-2" style="text-align: right;">
+                          <button @click="addElements()" class="btn btn-dark">Add Code</button>
+                        </div>
+                        
+                     
+                    </div>
+                  </div>
+        </script>
+        <!-- input template -->
+
         <script src="test.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
