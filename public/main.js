@@ -1,19 +1,46 @@
-const MainApp = {
+// Taginput component----------
+var TagInput = {
+    template: '#tag-input-template',
+    props: ['modelValue'],
     data() {
         return {
-            counter: 0,
-            codeName: '',
-            codeLanguage: '',
-            codeContent: '',
-            snippetItems: []
+            tagItems: [],
+            tagInput: '',
+            isEdit: true
+        };
+    },
+    // --------
+    methods: {
+        updateData(ev) {
+            ev.preventDefault()
+            console.log('Coma added', this.tagInput);
+            this.tagItems.push(this.tagInput);
+            this.tagInput = ''
+            this.$emit('update:modelValue', this.tagItems);
+        },
+        removeTag(){
+            this.isEdit = false
+        }
+    }
+};
+
+// Input Component
+var InputElements = {
+    components:{
+        'tag-input': TagInput,
+    },
+    template:'#input-elements',
+    props:['on-item-saved'],
+    data(){
+        return{
+            codeName:'',
+            codeLanguage:'',
+            codeContent:'',
+            name:''
         }
     },
-    methods: {
-        getSnippet() {
-            fetch('./snippets').then(response=>response.json()).then(console.log("my response", this.response)).then(data=>(this.snippetItems = data));
-            console.log(this.snippetItems)
-        },
-        addSnippets() {
+    methods:{
+        addElements() {
             fetch('./snippets', {
                 method: "post",
                 headers: {
@@ -22,107 +49,79 @@ const MainApp = {
                 body: JSON.stringify({
                     codename: this.codeName,
                     codelanguage: this.codeLanguage,
-                    codecontent: this.codeContent
-
+                    codecontent: this.codeContent,
+                    variables:this.name
+                
                 })
             })
-            this.getSnippet();
-            console.log(this.codename);
+        this.$emit('created' );
         }
-
-    },
-    created() {
-        this.getSnippet()
     }
 }
-
-//view snippet component
-var ViewSnippet = {
-    template: '#view-snippet',
-    props: ['type', 'snipid'],
+// Component View--------------
+var ViewComp = {
+    template: '#view-comp',
+    props: ['compitem'],
     data() {
         return {
-            compiledcontent: '',
-            val: '',
-            variable: {//componentname:'componentname'
+            codeRender : _.template(this.compitem.codecontent),
+            id:'',
+            codeVariables: {
             }
         }
     },
     methods: {
-
-        fetchData() {
-            fetch('./snippets/1').then(response=>response.json()).then(data=>{
-                this.compiledcontent = data;
-                this.val = _.template(this.compiledcontent.codecontent);
-            }
-            );
-        },
-        renderTemplate() {
-
+        
+        renderCode() {
+//             console.log("my array",this.compitem[1])
+            this.compitem;
+            
+            // console.log("New Temp",this.codeRender)
             var defaultData = {};
-            console.log('renderTemplate', this.compiledcontent + '');
-            for (var i in this.compiledcontent.variables) {
-                defaultData[this.compiledcontent.variables[i]] = ''
+            // console.log('renderTemplate', this.compitem + '');
+            for (var i in this.compitem.variables) {
+                defaultData[this.compitem.variables[i]] = ''
             }
             try {
-                return this.val(Object.assign(defaultData, this.variable));
+                return this.codeRender(Object.assign(defaultData, this.codeVariables));
             } catch (e) {
                 console.log('Error', e)
             }
 
         }
-    },
-    created() {
-        this.fetchData()
-    }
-};
-
-// view component--------------
-
-// test component--------------
-var testComp = {
-    template:'#test-comp',
-    props:['compitem'],
-    data(){
-        return{
-
-        }
-    },
-    methods:{
-        renderTest(){
-            this.compitem;
-            console.log("test component",this.compitem)
-        }
     }
 }
-// test component--------------
+// view component--------------
 
+// Main component----------
 const ViewApp = {
 
     components: {
-        'view-snippet': ViewSnippet,
-        'test-comp':testComp
+        // 'view-snippet': ViewSnippet,
+        'view-comp': ViewComp,
+        'input-elements':InputElements
+        
     },
     data() {
         return {
-            snippetItems: '',
+            snippetItems: [],
+            isHidden:true,
+            selectedItem: null,
 
         }
     },
     methods: {
-
+        ItemView(id){
+            console.log(id)
+        },
         snippetFetch() {
-            var id = 1;
-            if (id === '') {
-                var fetchItem = '/snippets/';
-            } else {
-                var fetchItem = './snippets/' + id;
-            }
-            fetch(fetchItem).then(response=>response.json()).then(data=>{
+            fetch('/snippets').then(response=>response.json()).then(data=>{
                 this.snippetItems = data;
-                console.log("my array", this.snippetItems)
+                var len = this.snippetItems.length;
+                console.log("my array",len)
             }
             );
+            this.isHidden = true;
         }
     },
     created() {

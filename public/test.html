@@ -69,6 +69,7 @@
                             <div class="source-desc">
                                 <h5>{{ item.codename }}</h5>
                                 <p>{{ item.codelanguage }}</p>
+                                
                               </div>
 
                               <div class="source-code">
@@ -98,7 +99,7 @@
 
 <div class="footer-main">
 <div class="container">
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 ">
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
@@ -124,12 +125,13 @@
 
         <script type="text/x-template" id="view-comp"> 
         <div class="row">
+        
             <h3 class="text-center">Code Render</h3>
             <div class="col-md-6 mt-5">
                 <div class="rendered-elements">
                     <h3>{{ compitem.codename }}</h3>
                     <p>{{ compitem.codelanguage }}</p>
-                    <input type="text" class="form-control" placeholder="Enter Variable Name" v-for="ele in compitem.varibales" v-model="codeVariables[ele]">
+                    <input type="text" class="form-control" placeholder="Enter Variable Name" v-for="ele in compitem.variables" v-model="codeVariables[ele]">
                 </div>
             </div>
             <div class="col-md-6 mt-5">
@@ -149,9 +151,9 @@
         <script type="text/x-template" id="input-elements">
             <div class="row justify-content-center">
                     <div class="col-md-8 mt-5">
-                   
                         <input type="text" v-model="codeName" class="form-control" placeholder="Name">
                         <input type="text" v-model="codeLanguage" class="form-control" placeholder="Language">
+                        <tag-input  v-model="name" ></tag-input>
                           <div class="text-area" >
                             <textarea name="" id="" rows="10" class="form-control" placeholder="Write Your code" v-model="codeContent"></textarea>
                           </div>
@@ -164,6 +166,14 @@
                   </div>
         </script>
         <!-- input template -->
+
+        <!-- Taginput--- -->
+        <script type="text/x-template" id="tag-input-template">
+            <div class="tag-input">
+            <span class="tag" v-for="item in tagItems">&nbsp;{{ item  }}&nbsp;<span @click="removeTag"></span></span>
+            <input type="text" class="" placeholder="Enter Variable Names" v-model="tagInput" @keypress.,="updateData"/>
+            </div>
+            </script>
 
         <script src="test.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

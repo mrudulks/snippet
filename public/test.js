@@ -1,12 +1,42 @@
+// Taginput component----------
+var TagInput = {
+    template: '#tag-input-template',
+    props: ['modelValue'],
+    data() {
+        return {
+            tagItems: [],
+            tagInput: '',
+            isEdit: true
+        };
+    },
+    // --------
+    methods: {
+        updateData(ev) {
+            ev.preventDefault()
+            console.log('Coma added', this.tagInput);
+            this.tagItems.push(this.tagInput);
+            this.tagInput = ''
+            this.$emit('update:modelValue', this.tagItems);
+        },
+        removeTag(){
+            this.isEdit = false
+        }
+    }
+};
+
 // Input Component
 var InputElements = {
+    components:{
+        'tag-input': TagInput,
+    },
     template:'#input-elements',
     props:['on-item-saved'],
     data(){
         return{
             codeName:'',
             codeLanguage:'',
-            codeContent:''
+            codeContent:'',
+            name:''
         }
     },
     methods:{
@@ -19,7 +49,8 @@ var InputElements = {
                 body: JSON.stringify({
                     codename: this.codeName,
                     codelanguage: this.codeLanguage,
-                    codecontent: this.codeContent
+                    codecontent: this.codeContent,
+                    variables:this.name
                 
                 })
             })
@@ -33,7 +64,7 @@ var ViewComp = {
     props: ['compitem'],
     data() {
         return {
-            codeRender: '',
+            codeRender : _.template(this.compitem.codecontent),
             id:'',
             codeVariables: {
             }
@@ -44,7 +75,7 @@ var ViewComp = {
         renderCode() {
 //             console.log("my array",this.compitem[1])
             this.compitem;
-            this.codeRender = _.template(this.compitem.codecontent)
+            
             // console.log("New Temp",this.codeRender)
             var defaultData = {};
             // console.log('renderTemplate', this.compitem + '');
@@ -62,12 +93,14 @@ var ViewComp = {
 }
 // view component--------------
 
+// Main component----------
 const ViewApp = {
 
     components: {
         // 'view-snippet': ViewSnippet,
         'view-comp': ViewComp,
         'input-elements':InputElements
+        
     },
     data() {
         return {

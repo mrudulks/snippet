@@ -106,3 +106,30 @@ input[type="text"]{
     bottom: 0;
     width: 100%;
 }
+
+
+/* taginput---- */
+.tag-input{
+    padding: 10px 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+.tag-input .tag{
+    display: inline-block;
+    background-color: #212529;
+    color: white;
+    border-radius: 40px;
+    padding: 2px 7px 2px 7px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    /* line-height: 28px; */
+}
+.tag-input input{
+    margin-bottom: 0;
+    width: 150px;
+    border: none;
+}
+.tag-input input:focus,
+.tag-input input:focus-visible{
+    border: none;
+}
