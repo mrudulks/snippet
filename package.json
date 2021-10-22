@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "javscript snippet project",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "json-server ./db.json"
+    "start": "json-server ./db.json"
   },
   "repository": {
     "type": "git",
